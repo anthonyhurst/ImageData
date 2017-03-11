@@ -12,16 +12,21 @@ int main(int argc, char** argv) {
     std::cout << "Width: " << image.width() << " Height: " << image.height() << std::endl;
     double red=0.0, blue=0.0, green=0.0;
     boost::unordered_map<uint64_t, int> colorFrequency;
+    int lightBlue = 0;
     for(int row = 0; row < image.height(); ++row) {
         for(int column = 0; column < image.width(); ++column) {
             red=image(column,row,0,0);
-            blue=image(column,row,0,1);
-            green=image(column,row,0,2);
-            std::cout << "Pixel (" << column << "," << row << ") R:" << red << " G:" << green << " B:" << blue << std::endl;
+            green=image(column,row,0,1);
+            blue=image(column,row,0,2);
+            std::cout << "Pixel (" << column << "," << row << ") RGB(" << red << "," << green << "," << blue << ")" << std::endl;
             uint64_t n = 0; 
             n += green;
             n += blue * 1000;
             n += red * 1000000;
+            if ( red < 100 && green > 100 && green < 200 && blue > 200) {
+                std::cout << "lightBlue" << std::endl;
+                lightBlue++;
+            }
             boost::unordered_map<uint64_t,int>::iterator it = colorFrequency.find(n);
             if (it == colorFrequency.end()) {
                 colorFrequency[n] = 0;
@@ -42,4 +47,5 @@ int main(int argc, char** argv) {
         if (i > 9)
             break; 
     }
+    std::cout << "lightBlue: " << lightBlue << std::endl;
 }

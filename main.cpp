@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     double red=0.0, blue=0.0, green=0.0;
     boost::unordered_map<uint64_t, int> colorFrequency;
     int lightBlue = 0;
-    double bucketSize = 10;
+    double bucketSize = 20;
     for(int row = 0; row < image.height(); ++row) {
         for(int column = 0; column < image.width(); ++column) {
             red=image(column,row,0,0);
@@ -49,6 +49,7 @@ int main(int argc, char** argv) {
     }
     freqs.sort();
     int i = 0;
+    int buckets = 15;
     for (std::list<int>::iterator it = freqs.end(); it != freqs.begin(); --it) {
         if (i == 0) {
             i++;
@@ -59,7 +60,7 @@ int main(int argc, char** argv) {
             std::cout << "\t" << *subIt;
         }
         std::cout << std::endl;
-        if (i > 9)
+        if (i > buckets)
             break; 
         i++;
     }
